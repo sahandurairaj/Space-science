@@ -356,6 +356,22 @@ body{position:fixed;inset:0}
   .worlds{grid-template-columns:repeat(2,minmax(0,1fr));grid-template-rows:repeat(4,minmax(0,1fr))}.wcard dl{display:none}
   .rgrid{grid-template-columns:1fr}
 }
+
+/* buttons must always stay on screen, even with browser bars */
+.side>*{flex:none}
+.side .chk,.side .tip,.base2 .alerts,.hint2{flex:0 1 auto;min-height:0;overflow:hidden}
+.side .btn{flex:none}
+.base2 .side .meters{flex:0 1 auto;min-height:0;overflow:hidden}
+@media (max-height:340px){
+  .top{padding-block:0}.brand{font-size:13px}.btn.small{min-height:26px;padding:2px 8px;font-size:12px}
+  .scr h2{font-size:16px}.phead .slots{font-size:13px}.phead .slots b{font-size:15px}
+  .btn.big{min-height:34px;font-size:14px;padding:6px 10px}.side .btn{min-height:34px;padding:6px 10px;font-size:14px}
+  .side .chk li:nth-child(n+4){display:none}
+  .hint2,.base2 .alerts{display:none}
+  .dayline h2{font-size:16px}.dayline .sci{font-size:12px}
+  .meter{padding:2px 6px;gap:6px;grid-template-columns:46px minmax(0,1fr) 36px}.meter .ma{display:none}.meter b,.meter .mv{font-size:12px}
+  .pcard em{display:none}.wcard .chip{display:none}
+}
 </style>
 </head>
 <body>
@@ -665,7 +681,7 @@ function drawModule(c,tp,x,y,s,st,t,w,night){
 const IS_TOUCH=()=>{try{return matchMedia('(pointer: coarse)').matches||navigator.maxTouchPoints>0}catch(e){return false}};
 if(IS_TOUCH())document.documentElement.classList.add('touch');
 try{if(IS_TOUCH()&&Math.min(window.screen.width,window.screen.height)<820)document.documentElement.classList.add('phone')}catch(e){}
-document.addEventListener('pointerdown',()=>{if(document.documentElement.classList.contains('phone')&&!(document.fullscreenElement||document.webkitFullscreenElement))enterLandscape()},{passive:true});
+document.addEventListener('click',()=>{if(document.documentElement.classList.contains('phone')&&!(document.fullscreenElement||document.webkitFullscreenElement))enterLandscape()});
 const AST={x:.1,y:.3,face:1,walk:0,moving:false,moved:false};
 const BK={left:false,right:false,up:false,down:false};
 const BKMAP={a:'left',A:'left',ArrowLeft:'left',d:'right',D:'right',ArrowRight:'right',w:'up',W:'up',ArrowUp:'up',s:'down',S:'down',ArrowDown:'down'};
